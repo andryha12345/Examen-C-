@@ -88,3 +88,39 @@ void addTask() {
 
     cout << "Завдання додано.\n";
 }
+
+void deleteTask() {
+    cout << "Введіть назву завдання для видалення: ";
+    string title;
+    getline(cin, title);
+
+    bool found = false;
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].title == title) {
+            for (int j = i; j < taskCount - 1; j++) {
+                allTasks[j] = allTasks[j + 1];
+            }
+            taskCount--;
+            found = true;
+            break;
+        }
+    }
+
+    for (int c = 0; c < MAX_CATEGORIES; c++) {
+        for (int i = 0; i < categories[c].count; i++) {
+            if (categories[c].tasks[i].title == title) {
+                for (int j = i; j < categories[c].count - 1; j++) {
+                    categories[c].tasks[j] = categories[c].tasks[j + 1];
+                }
+                categories[c].count--;
+                break;
+            }
+        }
+    }
+
+    if (found)
+        cout << "Завдання видалено.\n";
+    else
+        cout << "Не знайдено.\n";
+}
+
