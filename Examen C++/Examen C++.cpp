@@ -237,3 +237,34 @@ void saveUserTasks() {
     cout << "Збережено у " << filename << "\n";
 }
 
+void saveByCategory() {
+    cout << "Тип (1-WORK,2-PERSONAL,3-STUDY,4-OTHER): ";
+    int tp;
+    cin >> tp;
+    cin.ignore();
+
+    string fname;
+    if (tp == 1) fname = "work.txt";
+    else if (tp == 2) fname = "personal.txt";
+    else if (tp == 3) fname = "study.txt";
+    else if (tp == 4) fname = "other.txt";
+    else {
+        cout << "Невірний тип.\n";
+        return;
+    }
+
+    int idx = tp - 1;
+    ofstream f(fname);
+    int count = 1;
+    for (int i = 0; i < categories[idx].count; i++) {
+        Task t = categories[idx].tasks[i];
+        f << count << ". "
+            << t.title << " "
+            << t.deadline << " "
+            << t.priority << " "
+            << t.done << "\n";
+        count++;
+    }
+    f.close();
+    cout << "Збережено у " << fname << "\n";
+}
