@@ -201,4 +201,39 @@ void saveAllTasks() {
     cout << "Збережено у tasks.txt\n";
 }
 
-//print
+void saveUserTasks() {
+    cout << "ID користувача: ";
+    int uid;
+    cin >> uid;
+    cin.ignore();
+
+    string filename = "";
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].user.id == uid) {
+            filename = allTasks[i].user.name + "_" + allTasks[i].user.forname + ".txt";
+            break;
+        }
+    }
+
+    if (filename == "") {
+        cout << "Не знайдено користувача.\n";
+        return;
+    }
+
+    ofstream f(filename);
+    int count = 1;
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].user.id == uid) {
+            Task t = allTasks[i];
+            f << count << ". "
+                << t.title << " "
+                << t.deadline << " "
+                << t.priority << " "
+                << t.done << "\n";
+            count++;
+        }
+    }
+    f.close();
+    cout << "Збережено у " << filename << "\n";
+}
+
