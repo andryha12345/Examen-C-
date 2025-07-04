@@ -268,3 +268,32 @@ void saveByCategory() {
     f.close();
     cout << "Збережено у " << fname << "\n";
 }
+
+int main() {
+    setlocale(LC_ALL, "Ukrainian");
+
+    initCategories();
+    while (true) {
+        cout << "\nМеню:\n";
+        cout << "1. Додати\n2. Видалити\n3. Позначити виконаним\n4. Показати завдання користувача\n";
+        cout << "5. Зберегти усі\n6. Зберегти користувача\n7. Зберегти категорію\n";
+        cout << "8. Пошук по пріоритету\n9. Пошук по дедлайну\n10. Пошук по юзеру\n11. Вийти\n";
+        cout << "Ваш вибір: ";
+        int c;
+        cin >> c;
+        cin.ignore();
+        if (c == 1) addTask();
+        else if (c == 2) deleteTask();
+        else if (c == 3) markAsDone();
+        else if (c == 4) showUserTasks();
+        else if (c == 5) saveAllTasks();
+        else if (c == 6) saveUserTasks();
+        else if (c == 7) saveByCategory();
+        else if (c == 8) searchByPriority();
+        else if (c == 9) searchByDeadline();
+        else if (c == 10) searchByUser();
+        else if (c == 11) break;
+        else cout << "Невірно.\n";
+    }
+    return 0;
+}
