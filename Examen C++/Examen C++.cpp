@@ -187,3 +187,17 @@ void searchByUser() {
     }
 }
 
+void saveAllTasks() {
+    ofstream f("tasks.txt");
+    for (int i = 0; i < taskCount; i++) {
+        Task t = allTasks[i];
+        f << i + 1 << ". "
+            << t.title << " "
+            << t.deadline << " "
+            << t.priority << " "
+            << t.done << "\n";
+    }
+    f.close();
+    cout << "Збережено у tasks.txt\n";
+}
+
