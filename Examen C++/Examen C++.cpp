@@ -174,3 +174,16 @@ void searchByDeadline() {
         }
     }
 }
+
+void searchByUser() {
+    cout << "ID користувача: ";
+    int uid;
+    cin >> uid;
+    cin.ignore();
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].user.id == uid) {
+            cout << allTasks[i].title << "\n";
+        }
+    }
+}
+
