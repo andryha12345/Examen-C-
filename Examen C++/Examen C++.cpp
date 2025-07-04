@@ -163,3 +163,14 @@ void searchByPriority() {
         }
     }
 }
+
+void searchByDeadline() {
+    cout << "Дедлайн: ";
+    string d;
+    getline(cin, d);
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].deadline == d) {
+            cout << allTasks[i].title << "\n";
+        }
+    }
+}
