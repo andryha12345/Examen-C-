@@ -45,36 +45,36 @@ void initCategories() {
 
 void addTask() {
     if (taskCount >= MAX_TASKS) {
-        cout << "Більше завдань додати не можна.\n";
+        cout << "Cannot add more tasks.\n";
         return;
     }
 
     Task t;
-    cout << "Назва: ";
+    cout << "Title: ";
     getline(cin, t.title);
-    cout << "Опис: ";
+    cout << "Description: ";
     getline(cin, t.description);
-    cout << "Дедлайн (рррр-мм-дд): ";
+    cout << "Deadline (yyyy-mm-dd): ";
     getline(cin, t.deadline);
 
     int pr;
-    cout << "Пріоритет (1-LOW,2-MEDIUM,3-HIGH): ";
+    cout << "Priority (1-LOW,2-MEDIUM,3-HIGH): ";
     cin >> pr;
     cin.ignore();
     t.priority = (Priority)pr;
 
     int tp;
-    cout << "Тип (1-WORK,2-PERSONAL,3-STUDY,4-OTHER): ";
+    cout << "Type (1-WORK,2-PERSONAL,3-STUDY,4-OTHER): ";
     cin >> tp;
     cin.ignore();
     t.type = (TaskType)tp;
 
-    cout << "ID користувача: ";
+    cout << "User ID: ";
     cin >> t.user.id;
     cin.ignore();
-    cout << "Ім'я: ";
+    cout << "First name: ";
     getline(cin, t.user.name);
-    cout << "Прізвище: ";
+    cout << "Last name: ";
     getline(cin, t.user.forname);
     cout << "Email: ";
     getline(cin, t.user.email);
@@ -86,11 +86,11 @@ void addTask() {
     int idx = t.type - 1;
     categories[idx].tasks[categories[idx].count++] = t;
 
-    cout << "Завдання додано.\n";
+    cout << "Task added.\n";
 }
 
 void deleteTask() {
-    cout << "Введіть назву завдання для видалення: ";
+    cout << "Enter task title to delete: ";
     string title;
     getline(cin, title);
 
@@ -119,41 +119,41 @@ void deleteTask() {
     }
 
     if (found)
-        cout << "Завдання видалено.\n";
+        cout << "Task deleted.\n";
     else
-        cout << "Не знайдено.\n";
+        cout << "Not found.\n";
 }
 
 void markAsDone() {
-    cout << "Введіть назву завдання: ";
+    cout << "Enter task title: ";
     string title;
     getline(cin, title);
 
     for (int i = 0; i < taskCount; i++) {
         if (allTasks[i].title == title) {
             allTasks[i].done = true;
-            cout << "Позначено як виконане.\n";
+            cout << "Marked as done.\n";
             return;
         }
     }
-    cout << "Не знайдено.\n";
+    cout << "Not found.\n";
 }
 
 void showUserTasks() {
-    cout << "ID користувача: ";
+    cout << "User ID: ";
     int uid;
     cin >> uid;
     cin.ignore();
 
     for (int i = 0; i < taskCount; i++) {
         if (allTasks[i].user.id == uid) {
-            cout << allTasks[i].title << " - " << (allTasks[i].done ? "Виконане" : "Не виконане") << "\n";
+            cout << allTasks[i].title << " - " << (allTasks[i].done ? "Done" : "Not done") << "\n";
         }
     }
 }
 
 void searchByPriority() {
-    cout << "Пріоритет (1-LOW,2-MEDIUM,3-HIGH): ";
+    cout << "Priority (1-LOW,2-MEDIUM,3-HIGH): ";
     int pr;
     cin >> pr;
     cin.ignore();
@@ -165,7 +165,7 @@ void searchByPriority() {
 }
 
 void searchByDeadline() {
-    cout << "Дедлайн: ";
+    cout << "Deadline: ";
     string d;
     getline(cin, d);
     for (int i = 0; i < taskCount; i++) {
@@ -176,7 +176,7 @@ void searchByDeadline() {
 }
 
 void searchByUser() {
-    cout << "ID користувача: ";
+    cout << "User ID: ";
     int uid;
     cin >> uid;
     cin.ignore();
@@ -198,11 +198,11 @@ void saveAllTasks() {
             << t.done << "\n";
     }
     f.close();
-    cout << "Збережено у tasks.txt\n";
+    cout << "Saved to tasks.txt\n";
 }
 
 void saveUserTasks() {
-    cout << "ID користувача: ";
+    cout << "User ID: ";
     int uid;
     cin >> uid;
     cin.ignore();
@@ -216,7 +216,7 @@ void saveUserTasks() {
     }
 
     if (filename == "") {
-        cout << "Не знайдено користувача.\n";
+        cout << "User not found.\n";
         return;
     }
 
@@ -234,11 +234,11 @@ void saveUserTasks() {
         }
     }
     f.close();
-    cout << "Збережено у " << filename << "\n";
+    cout << "Saved to " << filename << "\n";
 }
 
 void saveByCategory() {
-    cout << "Тип (1-WORK,2-PERSONAL,3-STUDY,4-OTHER): ";
+    cout << "Type (1-WORK,2-PERSONAL,3-STUDY,4-OTHER): ";
     int tp;
     cin >> tp;
     cin.ignore();
@@ -249,7 +249,7 @@ void saveByCategory() {
     else if (tp == 3) fname = "study.txt";
     else if (tp == 4) fname = "other.txt";
     else {
-        cout << "Невірний тип.\n";
+        cout << "Invalid type.\n";
         return;
     }
 
@@ -266,19 +266,19 @@ void saveByCategory() {
         count++;
     }
     f.close();
-    cout << "Збережено у " << fname << "\n";
+    cout << "Saved to " << fname << "\n";
 }
 
 int main() {
-    setlocale(LC_ALL, "Ukrainian");
+    setlocale(LC_ALL, "English");
 
     initCategories();
     while (true) {
-        cout << "\nМеню:\n";
-        cout << "1. Додати\n2. Видалити\n3. Позначити виконаним\n4. Показати завдання користувача\n";
-        cout << "5. Зберегти усі\n6. Зберегти користувача\n7. Зберегти категорію\n";
-        cout << "8. Пошук по пріоритету\n9. Пошук по дедлайну\n10. Пошук по юзеру\n11. Вийти\n";
-        cout << "Ваш вибір: ";
+        cout << "\nMenu:\n";
+        cout << "1. Add\n2. Delete\n3. Mark as done\n4. Show user tasks\n";
+        cout << "5. Save all\n6. Save user\n7. Save category\n";
+        cout << "8. Search by priority\n9. Search by deadline\n10. Search by user\n11. Exit\n";
+        cout << "Your choice: ";
         int c;
         cin >> c;
         cin.ignore();
@@ -293,7 +293,7 @@ int main() {
         else if (c == 9) searchByDeadline();
         else if (c == 10) searchByUser();
         else if (c == 11) break;
-        else cout << "Невірно.\n";
+        else cout << "Invalid.\n";
     }
     return 0;
 }
