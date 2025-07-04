@@ -124,3 +124,42 @@ void deleteTask() {
         cout << "Не знайдено.\n";
 }
 
+void markAsDone() {
+    cout << "Введіть назву завдання: ";
+    string title;
+    getline(cin, title);
+
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].title == title) {
+            allTasks[i].done = true;
+            cout << "Позначено як виконане.\n";
+            return;
+        }
+    }
+    cout << "Не знайдено.\n";
+}
+
+void showUserTasks() {
+    cout << "ID користувача: ";
+    int uid;
+    cin >> uid;
+    cin.ignore();
+
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].user.id == uid) {
+            cout << allTasks[i].title << " - " << (allTasks[i].done ? "Виконане" : "Не виконане") << "\n";
+        }
+    }
+}
+
+void searchByPriority() {
+    cout << "Пріоритет (1-LOW,2-MEDIUM,3-HIGH): ";
+    int pr;
+    cin >> pr;
+    cin.ignore();
+    for (int i = 0; i < taskCount; i++) {
+        if (allTasks[i].priority == pr) {
+            cout << allTasks[i].title << "\n";
+        }
+    }
+}
